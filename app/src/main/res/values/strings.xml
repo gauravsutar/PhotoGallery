@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Image Gallery</string>
+    <string name="retry">Retry</string>
+    <string name="default_no_results_msg">No results.\n\nPlease search your favourite photos.</string>
+    <string name="search_hint">Photo</string>
+    <string name="search">Search</string>
+</resources>

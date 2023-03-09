@@ -3,5 +3,21 @@
     <string name="retry">Retry</string>
     <string name="default_no_results_msg">No results.\n\nPlease search your favourite photos.</string>
     <string name="search_hint">Photo</string>
+    <string name="search_hint_to_activate">Click me to activate</string>
+    <string name="search_hint_to_enter">Enter any keyword here</string>
     <string name="search">Search</string>
+    <string name="ok">OK</string>
+
+    <!--Biometric Prompt-->
+    <string name="biometric_prompt_title">We are using biometric authentication for security check.</string>
+    <string name="biometric_hw_unavailable">Authentication could not start because the device does not support biometric authentication</string>
+    <string name="biometric_not_enrolled">Authentication could not start because the user has not enrolled in biometric authentication</string>
+    <string name="biometric_unknown_error">Unknown error status received</string>
+    <string name="biometric_failure_title">The user failed to provide valid credentials</string>
+    <string name="biometric_cancelled_by_system">Authentication was cancelled by the system</string>
+    <string name="biometric_passcode_not_set">Passcode is not set on your device. Please try to set password from setting.</string>
+    <string name="biometric_cancelled_by_user">You have cancelled device authentication. You can not use Image Gallery app.</string>
+    <string name="biometric_success_by_user">You have successfully authenticated. You can use Image Gallery app.</string>
+    <string name="biometric_locked">Authentication could not continue because the user has been locked out of biometric authentication,due to failing authentication too many times.</string>
+    <string name="biometric_required_title">Biometric authentication required</string>
 </resources>

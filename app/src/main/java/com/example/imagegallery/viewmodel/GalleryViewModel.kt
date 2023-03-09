@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.imagegallery.data.repository.PhotoDataRepository
 import com.example.imagegallery.data.model.Photos
 import com.example.imagegallery.data.model.Resource
-import com.example.imagegallery.di.DefaultDispatcher
+import com.example.imagegallery.data.repository.PhotoDataRepository
+import com.example.imagegallery.di.MainDispatcher
 import com.example.imagegallery.presentation.GalleryActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * ViewModel for the [GalleryActivity] screen.
@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GalleryViewModel @Inject constructor(
     private val photoDataRepository: PhotoDataRepository,
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
+    @MainDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) :
     ViewModel() {
 
@@ -30,8 +30,8 @@ class GalleryViewModel @Inject constructor(
     private var pages: Int? = null
     private var lastScrollTime: Long = 0
 
-    private var _photoList = MutableLiveData<Resource<Photos>>()
-    val photoList: LiveData<Resource<Photos>> = _photoList
+    private var _photoList = MutableLiveData<Resource<Photos?>>()
+    val photoList: LiveData<Resource<Photos?>> = _photoList
 
     /**
      * Function to call search photos api by query and post it to UI
@@ -46,22 +46,21 @@ class GalleryViewModel @Inject constructor(
                 }
                 // Checks if current page is last page
                 pages?.let {
-                    if (currentPage > it) {
+                    if (it in 1 until currentPage) {
                         return@launch
                     }
                 }
                 currentQueryValue = queryString
 
                 val photos = photoDataRepository.getPhotos(queryString, page)
-                _photoList.postValue(Resource.success(photos))
+                _photoList.value = Resource.success(photos)
 
                 pages = photos.pages
                 currentPage = photos.page + 1
             } catch (ex: Exception) {
                 ex.printStackTrace()
-                _photoList.postValue(
+                _photoList.value =
                     Resource.error("Error while loading photos.\n\nPlease try again!", null)
-                )
             }
         }
     }
